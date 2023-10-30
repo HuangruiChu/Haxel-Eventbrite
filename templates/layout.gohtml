@@ -1,0 +1,17 @@
+{{define "layout"}}
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <title>{{template "title" .}}</title>
+    </head>
+    <body>
+        <header>
+        </header>
+        <div>
+            {{template "content" .}}
+        </div>
+        <footer>        
+        </footer>
+    </body>
+</html>
+{{end}}

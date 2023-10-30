@@ -1,0 +1,22 @@
+body {
+    max-width: 800px;
+    margin: 2rem auto;
+}
+
+header {
+    background-color: #8ac5c3;
+}
+
+
+footer {
+    background-color: #edece8;
+}
+
+img.som-shield {
+    height: 2em;
+    display: block;
+}
+
+input {
+    display: block;
+}
