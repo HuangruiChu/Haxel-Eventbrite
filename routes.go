@@ -13,6 +13,7 @@ func createRoutes() chi.Router {
 
 	r := chi.NewRouter()
 	r.Get("/", indexController)
+	r.Get("/about", aboutController)
 	addStaticFileServer(r, "/static/", "staticfiles")
 	return r
 }
