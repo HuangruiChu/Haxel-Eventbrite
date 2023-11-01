@@ -76,11 +76,14 @@ func addAttendee(id int, email string) error {
 // Add an event to the list of events.
 // This uses a "mutex" to say "hey, I'm using these data,
 // don't touch them while I'm using them!"
-func addEvent(event Event) {
+//Huangrui add the return value "id" to return the id of the event
+//That will be helpful when we want to add the event to the database and get the id of the event
+func addEvent(event Event) (id int){
 	allEventsMutex.Lock()
 	event.ID = getMaxEventID() + 1
 	allEvents = append(allEvents, event)
 	allEventsMutex.Unlock()
+	return event.ID
 }
 
 // init is run once when this file is first loaded. See
