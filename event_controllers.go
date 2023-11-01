@@ -53,16 +53,17 @@ func CreateEventController(w http.ResponseWriter, r *http.Request){
         dateStr := r.FormValue("date")
         if dateStr == "" {
 			Errors += "Date cannot be empty! "
-        }
-        // Parse the date
-		timelayout := "2006-01-02T15:04"
-		date, err := time.Parse(timelayout, dateStr)
-        if err != nil {
-			Errors += "Invalid date format! "
-        }
-		// Check if the date is in the past
-		if date.Before(time.Now()) {
-			Errors += "Date cannot be in the past! "
+        }else{
+			// Parse the date
+			timelayout := "2006-01-02T15:04"
+			date, err := time.Parse(timelayout, dateStr)
+			if err != nil {
+				Errors += "Invalid date format! " + dateStr
+			}
+			// Check if the date is in the past
+			if date.Before(time.Now()) {
+				Errors += "Date cannot be in the past! "
+			}
 		}
 		// Get the Title
 		title := r.FormValue("title")
