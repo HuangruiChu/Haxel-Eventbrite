@@ -5,6 +5,7 @@ import (
 	"github.com/go-chi/chi"
 	"strconv"
 	"time"
+	"encoding/json"
 )
 
 
@@ -100,4 +101,39 @@ func CreateEventController(w http.ResponseWriter, r *http.Request) {
         // Render the form for non-POST requests
         tmpl["create_event"].ExecuteTemplate(w, "layout", nil)
     }
+}
+
+// EventResponse is a struct to define the JSON response format.
+type EventResponse struct {
+	Events []Event `json:"events"`
+}
+
+func EventsAPIController(w http.ResponseWriter, r *http.Request) {
+	// Get all events
+	events, err := getAllEvents()
+	if err != nil {
+		http.Error(w, "Failed to retrieve events", http.StatusInternalServerError)
+		return
+	}
+
+	// Create a response containing the events
+	response := EventResponse{Events: events}
+
+	// Marshal the response into JSON
+	jsonResponse, err := json.Marshal(response)
+	if err != nil {
+		http.Error(w, "Failed to marshal JSON", http.StatusInternalServerError)
+		return
+	}
+
+	// Set the Content-Type header to indicate JSON
+	w.Header().Set("Content-Type", "application/json")
+
+	// Write the JSON response to the HTTP response writer
+	w.WriteHeader(http.StatusOK)
+	_, err = w.Write(jsonResponse)
+	if err != nil {
+		http.Error(w, "Failed to write JSON response", http.StatusInternalServerError)
+		return
+	}
 }
