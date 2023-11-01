@@ -1,0 +1,21 @@
+{{template "layout" .}}
+
+{{define "title"}}
+	Halex Create New Event
+{{end}}
+
+{{define "content"}}
+<p>RSVP form:</p>
+	<form method="POST">
+		<label for="title">Title</label>
+		<input type="text" name="title">
+		<label for="location">Location</label>
+		<input type="text" name="location">
+		<label for="image">Image URL</label>
+		<input type="url" name="image">
+		<label for="date">Date of event</label>
+		<input type="datetime-local" name="date" placeholder="YYYY-MM-DDTHH:MM">
+		<input type="submit">
+	</form>
+
+{{end}}
