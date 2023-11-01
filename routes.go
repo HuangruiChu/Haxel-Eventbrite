@@ -18,6 +18,8 @@ func createRoutes() chi.Router {
 	r.Post("/events/new", CreateEventController)
 	r.Get("/events/{id}", eventController)
 	r.Get("/api/events", EventsAPIController)
+	// Create a route for the API endpoint with a dynamic 'id' parameter
+	r.Get("/api/events/{id}", EventAPIController)
 	addStaticFileServer(r, "/static/", "staticfiles")
 	return r
 }

@@ -108,6 +108,7 @@ type EventResponse struct {
 	Events []Event `json:"events"`
 }
 
+// EventsAPIController is the controller for the API returning all events.
 func EventsAPIController(w http.ResponseWriter, r *http.Request) {
 	// Get all events
 	events, err := getAllEvents()
@@ -121,6 +122,42 @@ func EventsAPIController(w http.ResponseWriter, r *http.Request) {
 
 	// Marshal the response into JSON
 	jsonResponse, err := json.Marshal(response)
+	if err != nil {
+		http.Error(w, "Failed to marshal JSON", http.StatusInternalServerError)
+		return
+	}
+
+	// Set the Content-Type header to indicate JSON
+	w.Header().Set("Content-Type", "application/json")
+
+	// Write the JSON response to the HTTP response writer
+	w.WriteHeader(http.StatusOK)
+	_, err = w.Write(jsonResponse)
+	if err != nil {
+		http.Error(w, "Failed to write JSON response", http.StatusInternalServerError)
+		return
+	}
+}
+
+// EventAPIController is the controller for the API returning a single event.
+func EventAPIController(w http.ResponseWriter, r *http.Request) {
+	// Extract the 'id' from the URL path
+	idStr := chi.URLParam(r, "id")
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		http.Error(w, "Invalid event ID", http.StatusBadRequest)
+		return
+	}
+
+	// Get the event by ID
+	event, found := getEventByID(id)
+	if !found {
+		http.Error(w, "Event not found", http.StatusNotFound)
+		return
+	}
+
+	// Marshal the event into JSON
+	jsonResponse, err := json.Marshal(event)
 	if err != nil {
 		http.Error(w, "Failed to marshal JSON", http.StatusInternalServerError)
 		return
