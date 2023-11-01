@@ -14,7 +14,7 @@ func createRoutes() chi.Router {
 	r := chi.NewRouter()
 	r.Get("/", indexController)
 	r.Get("/about", aboutController)
-	r.Get("/events/new", NewEventController)
+	r.Get("/events/new", CreateEventController)
 	r.Post("/events/new", CreateEventController)
 	r.Get("/events/{id}", eventController)
 	r.Get("/api/events", EventsAPIController)
