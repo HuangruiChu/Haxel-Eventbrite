@@ -1,0 +1,36 @@
+{{template "layout" .}}
+
+{{define "title"}}
+	Halex Eventbrite Default
+{{end}}
+
+{{define "content"}}
+<h1 class="title"> {{.Title}} </h1>
+<p>
+	location: {{.Location}}
+</p>
+<p>
+// replace with a function
+	<a href="http://project.solutions.656.mba/events/1/donate">
+	Want to support?
+	</a>
+</p>
+<ul>
+	{{range .Attending}}
+		<li>
+		just a template
+		</li>
+	{{end}}
+</ul>
+
+<p>
+<img src={{.Image}} alt="event image">
+</p>
+
+<p>RSVP form:</p>
+<form method="POST">
+	<input type="email" name="email">
+	<input type="submit">
+</form>
+
+{{end}}

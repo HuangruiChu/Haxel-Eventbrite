@@ -11,4 +11,5 @@ func init() {
 	p := template.ParseFiles
 	tmpl["index"] = m(p("templates/index.gohtml", "templates/layout.gohtml"))
 	tmpl["about"] = m(p("templates/about.gohtml", "templates/layout.gohtml"))
+	tmpl["event"] = m(p("templates/event.gohtml", "templates/layout.gohtml"))
 }
