@@ -6,6 +6,7 @@ import (
 	"strconv"
 	"time"
 	"encoding/json"
+	"net/url"
 )
 
 
@@ -39,65 +40,72 @@ func eventController(w http.ResponseWriter, r *http.Request) {
 	tmpl["event"].Execute(w, contextData)
 }
 
-func NewEventController(w http.ResponseWriter, r *http.Request) {
-	tmpl["create_event"].ExecuteTemplate(w, "layout", nil)
+func isValidImageURL(url string) bool {
+	//Check if the image is valid [TODO]
+	return true
 }
 
-func CreateEventController(w http.ResponseWriter, r *http.Request) {
+// CreateEventController is the controller for the events/new page.
+func CreateEventController(w http.ResponseWriter, r *http.Request){
     if r.Method == http.MethodPost {
+		Errors := "" // Create a string to store errors
         // It's a POST request, process the form data
         dateStr := r.FormValue("date")
         if dateStr == "" {
-            http.Error(w, "Date cannot be empty", http.StatusBadRequest)
-            return
+			Errors += "Date cannot be empty! "
         }
         // Parse the date
 		timelayout := "2006-01-02T15:04"
 		date, err := time.Parse(timelayout, dateStr)
         if err != nil {
-            http.Error(w, "Invalid date format", http.StatusBadRequest)
-			Log.Println("looks like a bad date??",date)
-            return
+			Errors += "Invalid date format! "
         }
 		// Check if the date is in the past
 		if date.Before(time.Now()) {
-			http.Error(w, "Date cannot be in the past", http.StatusBadRequest)
-			return
+			Errors += "Date cannot be in the past! "
 		}
-		// Get the other form values
-		Title := r.FormValue("title")
-		// Check if the title is valid [TODO]
-		if Title == "" {
-			http.Error(w, "Title cannot be empty", http.StatusBadRequest)
-			return
-		}
-		Image := r.FormValue("image")
-		// Check if the image is valid [TODO]
-		if Image == "" {
-			http.Error(w, "Image cannot be empty", http.StatusBadRequest)
-			return	
-		}
-		Location := r.FormValue("location")	
-		// Check if the location is valid [TODO]
-		if Location == "" {
-			http.Error(w, "Location cannot be empty", http.StatusBadRequest)
-			return
+		// Get the Title
+		title := r.FormValue("title")
+		// Check if the title is valid
+		if len(title) <= 5 || len(title) >= 50 {
+			Errors += "Bad Title! Title must be between 5 and 50 unicode characters! "
 		}
 
-		// Create a new Event
-		newEvent := Event{
-			Title:    Title, // Assign the title from the form
-			Date:     date, // Assign the parsed time.Time
-			Image:    Image, // Assign the image from the form
-			Location: Location, // Assign the location from the form
+		//Get the image URL
+		image := r.FormValue("image")
+		// Check if the image is valid
+		_, err := url.ParseRequestURI(image)
+		if err != nil || !isValidImageURL(image){
+			Errors += "Invalid image URL! "
 		}
-	
-        // Call the addEvent function to add the new event
-        id := addEvent(newEvent)
-
-        // Redirect to the event page
-		http.Redirect(w, r, "/events/"+strconv.Itoa(id), http.StatusFound)
 		
+		//Get the location
+		location := r.FormValue("location")	
+		// Check if the location is valid [TODO]
+		if len(location) <=5 || len(location) >= 50{
+			Errors += "Bad Location! Location must be between 5 and 50 unicode characters! "
+		}
+		if Errors == "" {
+			// Create a new Event
+			newEvent := Event{
+				Title:    title, // Assign the title from the form
+				Date:     date, // Assign the parsed time.Time
+				Image:    image, // Assign the image from the form
+				Location: location, // Assign the location from the form
+			}
+			// Call the addEvent function to add the new event
+			id := addEvent(newEvent)
+			// Redirect to the event page
+			http.Redirect(w, r, "/events/"+strconv.Itoa(id), http.StatusFound)
+		} else {
+			// If there are errors, render the form again with error messages
+			tmplData := struct {
+                Errors string
+            }{
+                Errors: Errors,
+            }
+            tmpl["create_event"].ExecuteTemplate(w, "layout", tmplData)
+		}
     } else {
         // Render the form for non-POST requests
         tmpl["create_event"].ExecuteTemplate(w, "layout", nil)
