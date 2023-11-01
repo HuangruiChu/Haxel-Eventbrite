@@ -56,6 +56,7 @@ func CreateEventController(w http.ResponseWriter, r *http.Request) {
 		date, err := time.Parse(timelayout, dateStr)
         if err != nil {
             http.Error(w, "Invalid date format", http.StatusBadRequest)
+			Log.Println("looks like a bad date??",date)
             return
         }
 		// Check if the date is in the past
