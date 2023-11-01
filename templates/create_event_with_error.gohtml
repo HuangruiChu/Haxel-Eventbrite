@@ -5,6 +5,12 @@
 {{end}}
 
 {{define "content"}}
+<span>
+	<p class = "error">
+	{{.Errors}}
+	</p>
+</span>
+
 <p>RSVP form:</p>
 	<form method="POST">
 		<label for="title">Title</label>
