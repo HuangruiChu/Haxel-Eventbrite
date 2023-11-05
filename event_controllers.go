@@ -110,7 +110,7 @@ func CreateEventController(w http.ResponseWriter, r *http.Request){
             }{
                 Errors: Errors,
             }
-            tmpl["create_event"].ExecuteTemplate(w, "layout", tmplData)
+            tmpl["create_event_with_error"].ExecuteTemplate(w, "layout", tmplData)
 		}
     } else {
         // Render the form for non-POST requests
