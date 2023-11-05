@@ -40,9 +40,7 @@ func eventController(w http.ResponseWriter, r *http.Request) {
 	tmpl["event"].Execute(w, contextData)
 }
 
-func isValidImageURL(url string) bool {
-	//Check if the image is valid [TODO]
-	return true
+
 func isValidImageURL(url string) bool {
 	//Check if the image is valid [TODO]
 	return true
@@ -54,12 +52,12 @@ func CreateEventController(w http.ResponseWriter, r *http.Request){
 		Errors := "" // Create a string to store errors
         // It's a POST request, process the form data
         dateStr := r.FormValue("date")
+		// Parse the date
+		timelayout := "2006-01-02T15:04"
+		date, err := time.Parse(timelayout, dateStr)
         if dateStr == "" {
 			Errors += "Date cannot be empty! "
         }else{
-			// Parse the date
-			timelayout := "2006-01-02T15:04"
-			date, err := time.Parse(timelayout, dateStr)
 			if err != nil {
 				Errors += "Invalid date format! " + dateStr
 			}
