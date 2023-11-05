@@ -43,6 +43,9 @@ func eventController(w http.ResponseWriter, r *http.Request) {
 func isValidImageURL(url string) bool {
 	//Check if the image is valid [TODO]
 	return true
+func isValidImageURL(url string) bool {
+	//Check if the image is valid [TODO]
+	return true
 }
 
 // CreateEventController is the controller for the events/new page.
@@ -51,18 +54,20 @@ func CreateEventController(w http.ResponseWriter, r *http.Request){
 		Errors := "" // Create a string to store errors
         // It's a POST request, process the form data
         dateStr := r.FormValue("date")
-		// Parse the date
-		timelayout := "2006-01-02T15:04"
-		date, err := time.Parse(timelayout, dateStr)
-		if err != nil {
-			Errors += "Invalid date format! " + dateStr
-		}else{
-			// Check if the date is in the future
+        if dateStr == "" {
+			Errors += "Date cannot be empty! "
+        }else{
+			// Parse the date
+			timelayout := "2006-01-02T15:04"
+			date, err := time.Parse(timelayout, dateStr)
+			if err != nil {
+				Errors += "Invalid date format! " + dateStr
+			}
+			// Check if the date is in the past
 			if date.Before(time.Now()) {
 				Errors += "Date cannot be in the past! "
 			}
 		}
-		
 		// Get the Title
 		title := r.FormValue("title")
 		// Check if the title is valid
@@ -105,7 +110,7 @@ func CreateEventController(w http.ResponseWriter, r *http.Request){
             }{
                 Errors: Errors,
             }
-            tmpl["create_event_with_error"].ExecuteTemplate(w, "layout", tmplData)
+            tmpl["create_event"].ExecuteTemplate(w, "layout", tmplData)
 		}
     } else {
         // Render the form for non-POST requests
