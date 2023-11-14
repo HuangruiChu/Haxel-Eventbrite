@@ -42,7 +42,11 @@ func eventController(w http.ResponseWriter, r *http.Request) {
 
 
 func isValidImageURL(url string) bool {
-	//Check if the image is valid [TODO]
+	//Check if the image is valid 
+	//Image should have file types of ".png", ".jpg", ".jpeg", ".gif", or ".gifv"
+	if url[len(url)-4:] != ".png" && url[len(url)-4:] != ".jpg" && url[len(url)-5:] != ".jpeg" && url[len(url)-4:] != ".gif" && url[len(url)-5:] != ".gifv" {
+		return false
+	}
 	return true
 }
 
