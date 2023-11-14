@@ -17,6 +17,7 @@ func createRoutes() chi.Router {
 	r.Get("/events/new", CreateEventController)
 	r.Post("/events/new", CreateEventController)
 	r.Get("/events/{id}", eventController)
+	r.Post("/events/{id}", eventRSVPController)
 	r.Get("/api/events", EventsAPIController)
 	// Create a route for the API endpoint with a dynamic 'id' parameter
 	r.Get("/api/events/{id}", EventAPIController)
