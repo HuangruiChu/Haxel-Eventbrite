@@ -16,4 +16,5 @@ func init() {
 	tmpl["event_with_confirmation"] = m(p("templates/event_with_confirmation.gohtml", "templates/layout.gohtml"))
 	tmpl["create_event"] = m(p("templates/create_event.gohtml", "templates/layout.gohtml"))
 	tmpl["create_event_with_error"] = m(p("templates/create_event_with_error.gohtml", "templates/layout.gohtml"))
+	tmpl["event_donation"] = m(p("templates/event_donation.gohtml", "templates/layout.gohtml"))
 }

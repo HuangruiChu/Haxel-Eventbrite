@@ -1,0 +1,31 @@
+{{template "layout" .}}
+
+{{define "title"}}
+	Halex Eventbrite Donate
+{{end}}
+
+{{define "content"}}
+<span>
+<h1 class="title"> Support {{.Title}}</h1>
+
+<p>
+	Want to support the event? Scan the QR code below!
+</p>
+
+</span>
+
+<span>
+<img src="https://i.imgur.com/69Ftpxs.jpg" alt="Donate Image">
+</span>
+
+<span>
+    <p>
+        Please make a note the with ID: {{.ID}}, so that we know the event you want to support.
+
+        Your generous donation will help us continue our mission. Thank you for your support!
+    </p>
+
+</span>
+
+{{end}}
+

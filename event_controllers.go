@@ -304,3 +304,30 @@ func EventAPIController(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
+
+//Event Donation Controller
+//Help to show the Event Donation Page
+func EventDonationController (w http.ResponseWriter, r *http.Request){
+	idStr := chi.URLParam(r, "id") // Retrieve the "id" parameter from the URL as a string
+    // Convert "idStr" to an integer
+    id, err := strconv.Atoi(idStr)
+    if err != nil{
+        http.Error(w, "Invalid ID", http.StatusBadRequest)
+        return
+    }
+    // Now, you have "id" as an integer
+	theEvent, bool := getEventByID(id)
+	//bool should always be true because we have already checked it in eventController
+	if bool != true {
+		return
+	}
+	contextData := Event{
+		ID:        theEvent.ID,
+		Title:     theEvent.Title,
+		Date:      theEvent.Date,
+		Image:     theEvent.Image,
+		Location:  theEvent.Location,
+		Attending: theEvent.Attending,
+	}
+	tmpl["event_donation"].ExecuteTemplate(w, "layout", contextData)
+}
