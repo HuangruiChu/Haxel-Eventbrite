@@ -83,6 +83,7 @@ func eventRSVPController(w http.ResponseWriter, r *http.Request) {
 	//TODO: render error message if any of the above is true
 	// Redirect to the event page
 	http.Redirect(w, r, "/events/"+strconv.Itoa(id), http.StatusFound)
+}
 
 func isValidImageURL(url string) bool {
 	//Check if the image is valid 
