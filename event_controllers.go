@@ -7,7 +7,26 @@ import (
 	"time"
 	"encoding/json"
 	"net/url"
+	"crypto/sha256"
+	"encoding/hex"
 )
+
+func hashToLength7(input string) string {
+	// Hash the input string using SHA-256
+	hasher := sha256.New()
+	hasher.Write([]byte(input))
+	hashBytes := hasher.Sum(nil)
+
+	// Convert the hash to a hex-encoded string
+	hashString := hex.EncodeToString(hashBytes)
+
+	// Truncate the hash string to the first 7 characters
+	if len(hashString) > 7 {
+		hashString = hashString[:7]
+	}
+
+	return hashString
+}
 
 
 func eventController(w http.ResponseWriter, r *http.Request) {
@@ -43,6 +62,9 @@ func eventController(w http.ResponseWriter, r *http.Request) {
 //Check whether the email is valid
 func isValidEmail(email string) bool {
 	//Check if the email is valid 
+	if len(email) <= 8 || len(email) >= 50 {
+		return false
+	}
 	//Email should end with "yale.edu"
 	if email[len(email)-8:] != "yale.edu" {
 		return false
@@ -52,8 +74,21 @@ func isValidEmail(email string) bool {
 
 
 func eventRSVPController(w http.ResponseWriter, r *http.Request) {
-	idStr := chi.URLParam(r, "id") // Retrieve the "id" parameter from the URL as a string
 	Errors := "" // Create a string to store errors
+	Confirmation_Code := "" // Create a string to store confirmation code
+	//RSVP_Response - encapsulates information about an event rsvp
+	type RSVP_Response struct {
+		Errors string
+		Confirmation_Code string
+		ID        int       `json:"id"`
+		Title     string    `json:"title"`
+		Location  string    `json:"location"`
+		Image     string    `json:"image"`
+		Date      time.Time `json:"date"`
+		Attending []string  `json:"attending"`
+	}
+	
+	idStr := chi.URLParam(r, "id") // Retrieve the "id" parameter from the URL as a string
     // Convert "idStr" to an integer
     id, err := strconv.Atoi(idStr)
     if err != nil{
@@ -61,6 +96,22 @@ func eventRSVPController(w http.ResponseWriter, r *http.Request) {
         return
     }
     // Now, you have "id" as an integer
+	theEvent, bool := getEventByID(id)
+	//bool should always be true because we have already checked it in eventController
+	if bool != true {
+		//show error message that the event is not found
+		Errors += "Event not found! "
+	}
+	contextData := RSVP_Response{
+		ID:        theEvent.ID,
+		Title:     theEvent.Title,
+		Date:      theEvent.Date,
+		Image:     theEvent.Image,
+		Location:  theEvent.Location,
+		Attending: theEvent.Attending,
+		Confirmation_Code: Confirmation_Code,
+		Errors: Errors,
+	}
 
 	//get the attendee's email
 	email := r.FormValue("email")
@@ -69,20 +120,32 @@ func eventRSVPController(w http.ResponseWriter, r *http.Request) {
 		//show error message that the event is open to yale students only
 		Errors += "This event is open to Yale students only! "
 	}
-	
+	// if the email is not valid, render the form again with error messages
+	if Errors != "" {
+		// If there are errors, render the form again with error messages
+		contextData.Errors = Errors
+		tmpl["event_with_error"].Execute(w, contextData)
+		return
+	}
 	// Adds an attendee to an event
 	RSVPerr := addAttendee(id, email )
+	//RSVPerr should always be nil because we have already checked it in eventController
+	//Maybe we should return an error message if the event is full, rather than just show the event is not found
 	if RSVPerr != nil {
-		//show error message that the event is not found
-		Errors += "Event not found! "
+		//show error message that the event is full
+		Errors += "This event is full! "
+	}else{
+		contextData.Confirmation_Code = hashToLength7(email)
 	}
+	// if the event is full, render the form again with error messages
+
+
 	//TODO: check if the email is already in the list
 	//TODO: check if the event is full
 	//TODO: check if the event is in the past
 	//TODO: check if the event is open to yale students only
 	//TODO: render error message if any of the above is true
-	// Redirect to the event page
-	http.Redirect(w, r, "/events/"+strconv.Itoa(id), http.StatusFound)
+	tmpl["event_with_confirmation"].Execute(w, contextData)
 }
 
 func isValidImageURL(url string) bool {
