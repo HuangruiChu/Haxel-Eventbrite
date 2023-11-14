@@ -137,8 +137,14 @@ func eventRSVPController(w http.ResponseWriter, r *http.Request) {
 	}else{
 		contextData.Confirmation_Code = hashToLength7(email)
 	}
-	// if the event is full, render the form again with error messages
-
+	//Refech the event information for updating the attending list
+	theEvent, bool := getEventByID(id)
+	//bool should always be true because we have already checked it in eventController
+	if bool != true {
+		//show error message that the event is not found
+		Errors += "Event not found! "
+	}
+	contextData.Attending = theEvent.Attending
 
 	//TODO: check if the email is already in the list
 	//TODO: check if the event is full
