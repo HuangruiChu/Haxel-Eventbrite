@@ -36,10 +36,53 @@ func eventController(w http.ResponseWriter, r *http.Request) {
 		Location:  theEvent.Location,
 		Attending: theEvent.Attending,
 	}
-
+	// Render the template
 	tmpl["event"].Execute(w, contextData)
 }
 
+//Check whether the email is valid
+func isValidEmail(email string) bool {
+	//Check if the email is valid 
+	//Email should end with "yale.edu"
+	if email[len(email)-8:] != "yale.edu" {
+		return false
+	}
+	return true
+}
+
+
+func eventRSVPController(w http.ResponseWriter, r *http.Request) {
+	idStr := chi.URLParam(r, "id") // Retrieve the "id" parameter from the URL as a string
+	Errors := "" // Create a string to store errors
+    // Convert "idStr" to an integer
+    id, err := strconv.Atoi(idStr)
+    if err != nil{
+        http.Error(w, "Invalid ID", http.StatusBadRequest)
+        return
+    }
+    // Now, you have "id" as an integer
+
+	//get the attendee's email
+	email := r.FormValue("email")
+	// Check if the email is valid
+	if !isValidEmail(email){
+		//show error message that the event is open to yale students only
+		Errors += "This event is open to Yale students only! "
+	}
+	
+	// Adds an attendee to an event
+	RSVPerr := addAttendee(id, email )
+	if RSVPerr != nil {
+		//show error message that the event is not found
+		Errors += "Event not found! "
+	}
+	//TODO: check if the email is already in the list
+	//TODO: check if the event is full
+	//TODO: check if the event is in the past
+	//TODO: check if the event is open to yale students only
+	//TODO: render error message if any of the above is true
+	// Redirect to the event page
+	http.Redirect(w, r, "/events/"+strconv.Itoa(id), http.StatusFound)
 
 func isValidImageURL(url string) bool {
 	//Check if the image is valid 
