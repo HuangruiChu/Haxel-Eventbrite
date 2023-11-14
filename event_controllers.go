@@ -128,17 +128,17 @@ func eventRSVPController(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	// Adds an attendee to an event
-	RSVPerr := addAttendee(id, email )
+	err = addAttendee(id, email )
 	//RSVPerr should always be nil because we have already checked it in eventController
 	//Maybe we should return an error message if the event is full, rather than just show the event is not found
-	if RSVPerr != nil {
+	if err != nil {
 		//show error message that the event is full
 		Errors += "This event is full! "
 	}else{
 		contextData.Confirmation_Code = hashToLength7(email)
 	}
 	//Refech the event information for updating the attending list
-	theEvent, bool := getEventByID(id)
+	theEvent, bool = getEventByID(id)
 	//bool should always be true because we have already checked it in eventController
 	if bool != true {
 		//show error message that the event is not found
