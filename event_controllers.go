@@ -192,13 +192,19 @@ func CreateEventController(w http.ResponseWriter, r *http.Request){
 
 		//Get the image URL
 		image := r.FormValue("image")
-		// Check if the image is valid
-		_, iamgeerr := url.ParseRequestURI(image)
-		if iamgeerr != nil {
-			Errors += "Invalid image URL! "
-		}
-		if !isValidImageURL(image){
-			Errors += "Image should have file types of \".png\", \".jpg\", \".jpeg\", \".gif\", or \".gifv\". "
+		//check if the image is empty
+		if image == "" {
+			Errors += "Bad Image! Image cannot be empty! "
+		}else{
+			// Check if the image is valid
+			_, iamgeerr := url.ParseRequestURI(image)
+			if iamgeerr != nil {
+				Errors += "Bad Image! Invalid image URL! "
+			}else{
+				if !isValidImageURL(image){
+					Errors += "Bad Image! Image should have file types of \".png\", \".jpg\", \".jpeg\", \".gif\", or \".gifv\". "
+				}
+			}
 		}
 		//Get the location
 		location := r.FormValue("location")	
