@@ -20,3 +20,26 @@ img.som-shield {
 input {
     display: block;
 }
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    justify-content: center;
+}
+
+.team-member {
+    text-align: center;
+}
+
+.team-member img {
+    width: 100px; /* Adjust the size as needed */
+    height: 100px; /* Adjust the size as needed */
+    border-radius: 50%; /* Makes the images circular */
+    margin-bottom: 10px;
+}
+
+.nickname {
+    display: block; /* Ensures the nickname appears below the image */
+    /* Additional styling for the nickname text can be added here */
+}
