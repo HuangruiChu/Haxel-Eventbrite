@@ -38,3 +38,8 @@ input {
     border-radius: 50%; /* Makes the images circular */
     margin-bottom: 10px;
 }
+
+.nickname {
+    display: block; /* Ensures the nickname appears below the image */
+    /* Additional styling for the nickname text can be added here */
+}
