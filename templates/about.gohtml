@@ -1,37 +1,49 @@
 {{template "layout" .}}
 
 {{define "title"}}
-	About Us
+    About Us
 {{end}}
 
 {{define "content"}}
 <h1 class="title">About us</h1>
 <p>
-	About my team withered-horizon!
+    About my team withered-horizon!
 </p>
 
 <p>Here are the people on our team:</p>
 
-<div class="team-grid">
-    <div class="team-member">
-        <img src="https://www.treehugger.com/thmb/1FcPVSwX2uOGGLfSz8uJWqKTB0c=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-1194062139-0ff404cdd7414f648f48ff61b4a32d0c.jpg" alt="eager-boar">
-        <span class="nickname">eager-boar</span>
+<div class="team-section">
+    <div class="team-grid">
+        <div class="team-member">
+            <img src="https://as1.ftcdn.net/v2/jpg/01/91/86/10/1000_F_191861093_z2cFo8lZyH5PRbVhMycUC5WDlZQzSvQH.jpg" alt="alert-butterfly" onerror="this.src='https://cdn2.vectorstock.com/i/1000x1000/06/16/cartoon-funny-panda-sitting-on-white-background-vector-20810616.jpg'">
+            <span class="nickname">alert-butterfly</span>
+            <span class="title">Product Owner</span>
+        </div>
+        <div class="team-member">
+            <img src="https://us.123rf.com/450wm/tigatelu/tigatelu1511/tigatelu151100315/49007844-vector-illustration-of-cartoon-funny-pigeon-bird-presenting-isolated-on-white-background.jpg" alt="tender-pigeon" onerror="this.src='https://cdn2.vectorstock.com/i/1000x1000/06/16/cartoon-funny-panda-sitting-on-white-background-vector-20810616.jpg'">
+            <span class="nickname">tender-pigeon</span>
+            <span class="title">Scrum Master</span>
+        </div>
     </div>
-    <div class="team-member">
-        <img src="https://www.pbs.org/wnet/nature/files/2012/05/Oncorhynchus_nerka-1-e1418334906508.jpg" alt="proud-salmon">
-        <span class="nickname">proud-salmon</span>
-    </div>
-    <div class="team-member">
-        <img src="https://www.planetnatural.com/wp-content/uploads/2023/06/wasp-vs-hornet.jpg" alt="puzzled-hornet">
-        <span class="nickname">puzzled-hornet</span>
-    </div>
-    <div class="team-member">
-        <img src="https://www.allaboutbirds.org/guide/assets/photo/308074031-480px.jpg" alt="tender-pigeon">
-        <span class="nickname">tender-pigeon</span>
-    </div>
-    <div class="team-member">
-        <img src="https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L2ZsMTI5Mjk0MTAxNjUtaW1hZ2Uta3liZW9jNjEuanBn.jpg" alt="alert-butterfly">
-        <span class="nickname">alert-butterfly</span>
+</div>
+
+<div class="team-section">
+    <div class="team-grid">
+        <div class="team-member">
+            <img src="https://m.media-amazon.com/images/I/51vLJNy7BzL._AC_UF894,1000_QL80_.jpg" alt="eager-boar" onerror="this.src='https://cdn2.vectorstock.com/i/1000x1000/06/16/cartoon-funny-panda-sitting-on-white-background-vector-20810616.jpg'">
+            <span class="nickname">eager-boar</span>
+            <span class="title">Lead Developer</span>
+        </div>
+        <div class="team-member">
+            <img src="https://i.pinimg.com/736x/43/c3/9e/43c39e0e1c0488c2176e3adf67bf40a1.jpg" alt="proud-salmon" onerror="this.src='https://cdn2.vectorstock.com/i/1000x1000/06/16/cartoon-funny-panda-sitting-on-white-background-vector-20810616.jpg'">
+            <span class="nickname">proud-salmon</span>
+            <span class="title">Senior Developer</span>
+        </div>
+        <div class="team-member">
+            <img src="https://cdn5.vectorstock.com/i/1000x1000/42/84/cartoon-happy-wasp-isolated-on-white-background-vector-25604284.jpg" alt="puzzled-hornet" onerror="this.src='https://cdn2.vectorstock.com/i/1000x1000/06/16/cartoon-funny-panda-sitting-on-white-background-vector-20810616.jpg'">
+            <span class="nickname">puzzled-hornet</span>
+            <span class="title">Junior Developer</span>
+        </div>
     </div>
 </div>
 {{end}}
