@@ -21,15 +21,19 @@ input {
     display: block;
 }
 
+.team-section {
+    margin-bottom: 40px; /* Space between sections */
+}
+
 .team-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    display: flex;
+    justify-content: flex-start;
     gap: 20px;
-    justify-content: center;
 }
 
 .team-member {
     text-align: center;
+    flex-basis: 150px; /* Adjust based on your layout needs */
 }
 
 .team-member img {
@@ -40,6 +44,12 @@ input {
 }
 
 .nickname {
-    display: block; /* Ensures the nickname appears below the image */
+    display: block; /* Ensures the text appears below the image */
+    font-weight: bold; /* Makes the nickname text bold */
     /* Additional styling for the nickname text can be added here */
+}
+
+.title {
+    display: block; /* Ensures the title appears below the nickname */
+    /* Additional styling for the title text can be added here */
 }
