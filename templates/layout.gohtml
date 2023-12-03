@@ -1,6 +1,6 @@
 {{define "layout"}}
-<!DOCTYPE html>
-<html lang="en-US">
+    <!DOCTYPE html>
+    <html lang="en-US">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,17 +10,17 @@
         <title>{{template "title" .}}</title>
     </head>
     <body>
-        <header>
-            <img id="logo" alt="logo" src="https://i.imgur.com/PWR2JQz.png" class="som-shield" />
-        </header>
-        <div>
-            {{template "content" .}}
-        </div>
-        <footer>
-            <img src="https://i.imgur.com/PWR2JQz.png"  alt="SOM shield" class="som-shield" />
-            <a href="/about">About us</a>,
-            <a href="/">Home</a>,         
-        </footer>
+    <header>
+        <img id="logo" alt="logo" src="https://i.imgur.com/PWR2JQz.png" class="som-shield"/>
+    </header>
+    <div>
+        {{template "content" .}}
+    </div>
+    <footer class="footer">
+        <p></p>
+        <img src="https://i.imgur.com/PWR2JQz.png" alt="SOM shield" class="som-shield"/>
+        <a href="/">Home</a> | <a href="/about">About us</a>
+    </footer>
     </body>
-</html>
+    </html>
 {{end}}

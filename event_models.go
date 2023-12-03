@@ -15,12 +15,13 @@ var allEventsMutex = &sync.Mutex{}
 
 // Event - encapsulates information about an event
 type Event struct {
-	ID        int       `json:"id"`
-	Title     string    `json:"title"`
-	Location  string    `json:"location"`
-	Image     string    `json:"image"`
-	Date      time.Time `json:"date"`
-	Attending []string  `json:"attending"`
+	ID         int       `json:"id"`
+	Title      string    `json:"title"`
+	Location   string    `json:"location"`
+	Image      string    `json:"image"`
+	CoverImage string    `json:"coverImage"`
+	Date       time.Time `json:"date"`
+	Attending  []string  `json:"attending"`
 }
 
 // getEventByID - returns the event in `allEvents` that has
@@ -78,7 +79,7 @@ func addAttendee(id int, email string) error {
 // don't touch them while I'm using them!"
 //Huangrui add the return value "id" to return the id of the event
 //That will be helpful when we want to add the event to the database and get the id of the event
-func addEvent(event Event) (id int){
+func addEvent(event Event) (id int) {
 	allEventsMutex.Lock()
 	event.ID = getMaxEventID() + 1
 	allEvents = append(allEvents, event)
@@ -97,28 +98,31 @@ func init() {
 
 	defaultEvents := []Event{
 		{
-			ID:        1,
-			Title:     "SOM House Party",
-			Date:      time.Date(2023, 10, 17, 16, 30, 0, 0, newYorkTimeZone),
-			Image:     "http://i.imgur.com/pXjrQ.gif",
-			Location:  "Kyle's house",
-			Attending: []string{"kyle.jensen@yale.edu", "kim.kardashian@yale.edu"},
+			ID:         1,
+			Title:      "SOM House Party",
+			Date:       time.Date(2023, 10, 17, 16, 30, 0, 0, newYorkTimeZone),
+			Image:      "http://i.imgur.com/pXjrQ.gif",
+			CoverImage: "https://cdn.midjourney.com/5fce79af-8791-4ceb-a755-f315cf9072ad/0_2.png",
+			Location:   "Kyle's house",
+			Attending:  []string{"kyle.jensen@yale.edu", "kim.kardashian@yale.edu"},
 		},
 		{
-			ID:        2,
-			Title:     "BBQ party for hackers and nerds",
-			Date:      time.Date(2023, 10, 19, 19, 0, 0, 0, newYorkTimeZone),
-			Image:     "http://i.imgur.com/7pe2k.gif",
-			Location:  "Judy Chevalier's house",
-			Attending: []string{"kyle.jensen@yale.edu", "kim.kardashian@yale.edu"},
+			ID:         2,
+			Title:      "BBQ party for hackers and nerds",
+			Date:       time.Date(2023, 10, 19, 19, 0, 0, 0, newYorkTimeZone),
+			Image:      "http://i.imgur.com/7pe2k.gif",
+			CoverImage: "https://cdn.midjourney.com/00078fe9-73a2-4c9d-b0b4-81477b2a2c5e/0_0.png",
+			Location:   "Judy Chevalier's house",
+			Attending:  []string{"kyle.jensen@yale.edu", "kim.kardashian@yale.edu"},
 		},
 		{
-			ID:        3,
-			Title:     "BBQ for managers",
-			Date:      time.Date(2023, 12, 2, 18, 0, 0, 0, newYorkTimeZone),
-			Image:     "http://i.imgur.com/CJLrRqh.gif",
-			Location:  "Barry Nalebuff's house",
-			Attending: []string{"kim.kardashian@yale.edu"},
+			ID:         3,
+			Title:      "BBQ for managers",
+			Date:       time.Date(2023, 12, 2, 18, 0, 0, 0, newYorkTimeZone),
+			Image:      "http://i.imgur.com/CJLrRqh.gif",
+			CoverImage: "https://cdn.midjourney.com/2d0f9720-6be1-4ea5-823d-dd14538fa3c2/0_3.png",
+			Location:   "Barry Nalebuff's house",
+			Attending:  []string{"kim.kardashian@yale.edu"},
 		},
 		// Here I didn't include an even #4 just to show that
 		// events in a real system might be deleted and so you
@@ -126,12 +130,13 @@ func init() {
 		// tries to get event #4, you would typically return
 		// a 404 error which means "not found".
 		{
-			ID:        5,
-			Title:     "Cooking lessons for the busy business student",
-			Date:      time.Date(2023, 12, 21, 19, 0, 0, 0, newYorkTimeZone),
-			Image:     "http://i.imgur.com/02KT9.gif",
-			Location:  "Yale Farm",
-			Attending: []string{"homer.simpson@yale.edu"},
+			ID:         5,
+			Title:      "Cooking lessons for the busy business student",
+			Date:       time.Date(2023, 12, 21, 19, 0, 0, 0, newYorkTimeZone),
+			Image:      "http://i.imgur.com/02KT9.gif",
+			CoverImage: "https://cdn.midjourney.com/83834648-2cce-48ac-877c-330daf1ff71f/0_0.png",
+			Location:   "Yale Farm",
+			Attending:  []string{"homer.simpson@yale.edu"},
 		},
 	}
 	allEvents = append(allEvents, defaultEvents...)
