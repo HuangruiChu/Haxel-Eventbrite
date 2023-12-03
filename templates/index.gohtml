@@ -1,26 +1,33 @@
 {{template "layout" .}}
 
 {{define "title"}}
-	Halex Eventbrite
+    Halex Eventbrite
 {{end}}
 
 {{define "content"}}
-<h1 class="title">Class project starter</h1>
-<p>
-	Hi, today is {{.Today.Format "Jan 02, 2006"}}
-</p>
-<p>
-	<a href="/events/new">Create</a> a new event.
-</p>
-<ul>
-	{{range .Events}}
-		<li>
-			<a href="/events/{{.ID}}">{{.Title}}</a>
-			at
-			<time>
-				{{.Date.Format "2006-01-02T15:04:05"}}
-			</time>
-		</li>
-	{{end}}
-</ul>
+
+    <div class="container teal">
+        <h1>Class project starter</h1>
+    </div>
+
+    <div class="content">
+        <p>
+            Hi, today is {{.Today.Format "Jan 02, 2006"}}
+        </p>
+        <p>
+            <a href="/events/new">Create</a> a new event.
+        </p>
+            {{range .Events}}
+                <div class="row margin">
+                    <div class="third">
+                        <img src="{{.CoverImage}}" width="30%">
+                    </div>
+                    <div class="twothird container">
+                        <h5><a href="/events/{{.ID}}">{{.Title}}</a> at
+                            <time>{{.Date.Format "2006-01-02T15:04:05"}}</time>
+                        </h5>
+                    </div>
+                </div>
+            {{end}}
+    </div>
 {{end}}
