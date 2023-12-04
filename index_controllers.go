@@ -6,11 +6,26 @@ import (
 	"sort"
 )
 
-func sortEventsByDate(events []Event) {
+func sortEvents(events []Event) {
+    now := time.Now()
     sort.Slice(events, func(i, j int) bool {
-        return events[i].Date.Before(events[j].Date)
+        event1IsPast := events[i].Date.Before(now)
+        event2IsPast := events[j].Date.Before(now)
+
+        if event1IsPast && event2IsPast {
+            // Both events are in the past, sort from newest to oldest
+            return events[i].Date.After(events[j].Date)
+        } else if !event1IsPast && !event2IsPast {
+            // Both events are in the future, sort from oldest to newest
+            return events[i].Date.Before(events[j].Date)
+        } else {
+            // One event is in the past and the other in the future,
+            // the future event should come first
+            return event2IsPast
+        }
     })
 }
+
 
 func indexController(w http.ResponseWriter, r *http.Request) {
 
@@ -26,7 +41,7 @@ func indexController(w http.ResponseWriter, r *http.Request) {
 	}
 	
 	// Sort events by date
-	sortEventsByDate(theEvents)
+	sortEvents(theEvents)
 
 	contextData := indexContextData{
 		Events: theEvents,
