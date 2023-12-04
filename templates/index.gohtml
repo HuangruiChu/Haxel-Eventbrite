@@ -7,7 +7,7 @@
 {{define "content"}}
 
     <div class="container teal">
-        <h1>Class project starter</h1>
+        <h1>Halex Eventbrite</h1>
     </div>
 
     <div class="content">
@@ -20,9 +20,9 @@
         {{range .Events}}
             <p></p>
             <div style="text-align:center;">
-                <img src="{{.Image}}" width="50%">
+                <img src="{{.Image}}" width=400 alt={{.Title}}]]>
                 <h5><a href="/events/{{.ID}}">{{.Title}}</a><br>at
-                    <time>{{.Date.Format "Mon, 02 Jan, 2006, 3:04PM MST"}}</time>,
+                    <time>{{.Date.Format "2006-01-02T15:04:05"}}</time>,
                     {{len .Attending}} people are going
                 </h5>
             </div>
