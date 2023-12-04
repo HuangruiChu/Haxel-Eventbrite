@@ -17,14 +17,18 @@
         <p>
             <a href="/events/new">Create</a> a new event.
         </p>
-        {{range .Events}}
-            <p></p>
-            <div style="text-align:center;">
-                <img src="{{.Image}}" width="50%">
-                <h5><a href="/events/{{.ID}}">{{.Title}}</a><br>at
-                    <time>{{.Date.Format "2006-01-02T15:04:05"}}</time>
-                </h5>
-            </div>
-        {{end}}
+            {{range .Events}}
+                <div class="row margin">
+                    <div class="third">
+                        <img src="{{.CoverImage}}" width="30%">
+                    </div>
+                    <div class="twothird container">
+                        <h5><a href="/events/{{.ID}}">{{.Title}}</a> at
+                            <time>{{.Date.Format "Mon, 02 Jan, 2006, 3:04PM MST"}}</time>,
+                            {{len .Attending}} people are going
+                        </h5>
+                    </div>
+                </div>
+            {{end}}
     </div>
 {{end}}
