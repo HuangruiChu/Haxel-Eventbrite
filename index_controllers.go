@@ -41,7 +41,7 @@ func indexController(w http.ResponseWriter, r *http.Request) {
 	}
 	
 	// Sort events by date
-	sortEventsByDate(theEvents)
+	sortEvents(theEvents)
 
 	contextData := indexContextData{
 		Events: theEvents,
