@@ -137,7 +137,7 @@ func eventRSVPController(w http.ResponseWriter, r *http.Request) {
 	}
 	// Check for repeated RSVP
 	if isAlreadyRSVPed(id, email) {
-		Errors += "You have already RSVPed for this event. "
+		Errors += "You have already RSVPed this event. "
 	}
 	// if the email is not valid, render the form again with error messages
 	if Errors != "" {
