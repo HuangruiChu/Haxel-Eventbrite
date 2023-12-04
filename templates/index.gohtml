@@ -24,9 +24,9 @@
                     </div>
                     <div class="twothird container">
                         <h5><a href="/events/{{.ID}}">{{.Title}}</a> at
-                            <time>{{.Date.Format "2006-01-02T15:04:05"}}</time>
+                            <time>{{.Date.Format "Mon, 02 Jan, 2006, 3:04PM MST"}}</time>,
+                            {{len .Attending}} people are going
                         </h5>
-                        <p>Number of RSVPs: {{len .Attending}}</p>
                     </div>
                 </div>
             {{end}}
