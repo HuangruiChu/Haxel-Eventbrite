@@ -20,7 +20,7 @@
         {{range .Events}}
             <p></p>
             <div style="text-align:center;">
-                <img src="{{.Image}}" width=400>
+                <img src="{{.Image}}" width=400 alt={{.Title}}]]>
                 <h5><a href="/events/{{.ID}}">{{.Title}}</a><br>at
                     <time>{{.Date.Format "2006-01-02T15:04:05"}}</time>,
                     {{len .Attending}} people are going
