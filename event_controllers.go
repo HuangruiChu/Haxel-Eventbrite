@@ -72,6 +72,21 @@ func isValidEmail(email string) bool {
 	return true
 }
 
+func isAlreadyRSVPed(eventID int, email string) bool {
+    // Retrieve the event by ID
+    event, found := getEventByID(eventID)
+    if !found {
+        return false // or handle the error as appropriate
+    }
+
+    // Check if email is in the attending list
+    for _, attendeeEmail := range event.Attending {
+        if email == attendeeEmail {
+            return true
+        }
+    }
+    return false
+}
 
 func eventRSVPController(w http.ResponseWriter, r *http.Request) {
 	Errors := "" // Create a string to store errors
@@ -121,6 +136,10 @@ func eventRSVPController(w http.ResponseWriter, r *http.Request) {
 		Errors += "This event is open to Yale students only! "
 	}
 	// if the email is not valid, render the form again with error messages
+	// Check for repeated RSVP
+	if isAlreadyRSVPed(id, email) {
+		Errors += "You have already RSVPed for this event. "
+	}
 	if Errors != "" {
 		// If there are errors, render the form again with error messages
 		contextData.Errors = Errors
