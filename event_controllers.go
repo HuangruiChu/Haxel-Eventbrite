@@ -128,6 +128,11 @@ func eventRSVPController(w http.ResponseWriter, r *http.Request) {
 		Errors: Errors,
 	}
 
+	// Check if the event is in the past
+	if theEvent.Date.Before(time.Now()) {
+		//show error message that the event is in the past
+		Errors += "Event is in the past! "
+	}
 	//get the attendee's email
 	email := r.FormValue("email")
 	// Check if the email is valid
@@ -167,7 +172,6 @@ func eventRSVPController(w http.ResponseWriter, r *http.Request) {
 
 	//TODO: check if the email is already in the list
 	//TODO: check if the event is full
-	//TODO: check if the event is in the past
 	//TODO: check if the event is open to yale students only
 	//TODO: render error message if any of the above is true
 	tmpl["event_with_confirmation"].Execute(w, contextData)
