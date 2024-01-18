@@ -1,32 +1,41 @@
-# Project starter
+# Project Introduction
 
-Ahoy! This is the project starter. I've done some
-of the hard parts for you. Good luck.
+Withered-horizon is delighted to present it's brand new low cost event management website intended to be used by educational institutions in the US to effectively register new events and RSVP invitees and safely handle invitee information. 
 
-## Version Control
+Our objectives in this project:
 
-You'll want *just one code repo* for your team. You should 
-use git branches liberally to keep track of your work. I like
-using GitHub Issues and Projects to track work. Though, you'll
-have to shoehorn it a little bit to make it work for Scrum
-strictly.
+1) To generate a commercially viable low-cost alternative to similar to sites like Evenbrite
+2) To offer appealing user-experience to the intended audience.
+3) To adhere to software development best-practices by adopting an Agile framework in our work. 
 
+
+# Development team:
+
+Huangrui Chu (eager-boar) : Lead Developer
+
+Xincong "Jerry" He (proud-salmon): Senior Developer
+
+Lu Cao (puzzled-hornet): Junior Developer
+
+Abhinav Gokari (alert-butterfly): Product Owner
+
+Edgardo Rios (tender-pigeon): Scrum Master
+
+## Duration: Oct 31st - Dec 11th
+
+## Our Wiki
+
+https://github.com/HuangruiChu/Haxel-Eventbrite/wiki
+
+## Acknowledgement
+Thanks to [Professor Kyle L. Jensen](https://github.com/kljensen) for providing Yale School of Management  MGT656 "Management of Software Development" in 2023 Fall. This project is based on the template Kyle provided.
 ## Building the project
-
 Run `go build -mod vendor` to compile your project and then
 run `./classproject` or `./classproject` on Windows
 in order to run the app. Preview the app by visiting
 [http://localhost:8080](http://localhost:8080) if you're
 running it locally. Or, preview using the URL provided
 GitHub CodeSpaces if you're running there, natch.
-
-## Deploying to Render, Heroku, Fly.io, or whatever
-
-You'll need to deploy your app to "production" somewhere.
-I don't care where you deploy it, as long as that URL is
-available from Yale's networks. You could deploy it to
-Fly.io, Render, Heroku, DigitalOcean, whatever. I think
-you're going to find Render the easiest.
 
 ## What is here
 
@@ -46,41 +55,3 @@ you're going to find Render the easiest.
 | ./go.mod                  | [Go modules file](https://www.kablamo.com.au/blog/2018/12/10/just-tell-me-how-to-use-go-modules). Lists our dependencies. |
 | ./go.sum                  | A "checksum" file that says precisely what versions of our dependencies need to be installed.                             |
 | ./vendor                  | A directory containing our dependencies                                                                                   |
-
-## Automatic reload
-
-If you want your app to reload every time you make a
-change you can do the following. First
-install reflex with `go get github.com/cespare/reflex`.
-
-Then, run
-
-```
-~/go/bin/reflex -d fancy -r'\.go' -r'\.gohtml' -s -R vendor. -- go run *.go
-```
-
-or something like that. Look at the reflex documentation. Automatic
-reload is pretty rad while developing. As a general rule, developers
-want to let computers do what computers are good at (tasks that can be automated)
-so that they, the developers, can focus on what they are good at: the
-logic of the product.
-
-## Other info
-
-Information about the class final project is distributed between
-a few places and I apologize for this. You can find information
-about the project in the following places:
-
-- This page (which you're likely looking at in your own repo)
-- The sprint-1 assignment page:
-  [656](https://www.656.mba/#assignments/project-sprint-1)
-- The "about" repo for the class:
-  [https://github.com/yale-mgt-656-fall-2023/about/blob/master/class-project.md](https://github.com/yale-mgt-656-fall-2023/about/blob/master/class-project.md)
-- The online grading: <http://grading.656.mba/new/project>
-- The reference solution
-  [http://project.solutions.656.mba/](http://project.solutions.656.mba/).
-  This is probably the most useful thing. If you're having difficulty passing
-  some test on the grading code, please look at my code (feel free!) and 
-  make sure you're using the kinds of HTML attributes that the grading
-  code expects.
-- My comments in class
