@@ -27,6 +27,10 @@ Edgardo Rios (tender-pigeon): Scrum Master
 
 https://github.com/HuangruiChu/Haxel-Eventbrite/wiki
 
+## Our Website
+
+https://haxel-eventbrite.onrender.com/
+
 ## Acknowledgement
 Thanks to [Professor Kyle L. Jensen](https://github.com/kljensen) for providing Yale School of Management  MGT656 "Management of Software Development" in 2023 Fall. This project is based on the template Kyle provided.
 ## Building the project
